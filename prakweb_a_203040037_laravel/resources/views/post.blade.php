@@ -4,10 +4,10 @@
 <article>
     <h2>{{ $post->title }}</h2>
 
-    <p>By. Bintang Yandi Putra in <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+    <p>By. <a class="text-decoration-none" href="#">{{$post->user->name}}</a> in <a class="text-decoration-none" href="/categories/{{$post->category->slug}}">{{$post->category->name}}</a></p>
 
     {!! $post->body !!}
 </article>
 
-<a href="/blog">Back</a>
+<a href="/blog" class="d-block mt-3">Back to posts</a>
 @endsection
