@@ -10,8 +10,9 @@ class PostController extends Controller
     {
         return view('posts', [
             "title" => "posts",
-            "posts" => Post::all()
-        ]);
+            // "posts" => Post::all()
+            'posts'=> post::latest()->get()
+        ]); 
     }
 
     public function show(Post $post)
@@ -22,3 +23,4 @@ class PostController extends Controller
         ]);
     }
 }
+ 
