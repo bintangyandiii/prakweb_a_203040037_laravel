@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'hedi@gmail.com',
         //     'password' => bcrypt('12344')
         // ]);
+        User::factory(3)->create();
+
 
         Category::create([
             'name' => 'Programming',
@@ -33,9 +35,16 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Category::create([
+            'name' => 'Web Design',
+            'slug' => 'web-design'
+        ]);
+
+        Category::create([
             'name' => 'Personal',
             'slug' => 'personal'
         ]);
+
+        Post::factory(20)->create();
 
         // Post::create([
         //     'title' => 'Judul Pertama',
