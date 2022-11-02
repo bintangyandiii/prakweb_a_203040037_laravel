@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Post;
 use Faker\Provider\Image;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegisterController;
 use App\Models\Category;
-use App\Models\User;
 
 
 /*
@@ -45,10 +45,13 @@ Route::get('/posts', [PostController::class, 'index']);
 //halaman single post
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
-Route::get('/categories/{category:slug}', function(Category $category){
-    return view('posts', [
-        'title' => "Post by Category: $category->name",
+Route::get('/categories/', function () {
+    return view('categories', [
+        'title' => 'Post Categories',
         'active' => 'categories',
-        'posts' => $category->posts->load('category', 'author')
+        'categories' => Category::all()
     ]);
 });
+
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index']);
