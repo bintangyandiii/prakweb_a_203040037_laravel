@@ -8,29 +8,39 @@
 
 {{-- Form --}}
 <div class="col-lg-8">
-    <form method="post" action="/dashboard/posts">
+    <form method="post" action="/dashboard/posts" class="mb-5">
         @csrf
 
         {{-- title --}}
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
+            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title required autofocus value="{{ old('title') }}">
             {{-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> --}}
+            @error('title')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
 
         {{-- slug --}}
         <div class="mb-3">
             <label for="slug" class="form-label">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug"> {{-- disabled readonly -- Biar tidak bisa di edit}}
+            <input type="text" class="form-control @error('title') is-invalid @enderror" id="slug " name="slug  required value="{{ old('slug') }}"> {{-- disabled readonly -- Biar tidak bisa di edit}}
             {{-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> --}}
         </div>
 
         {{-- category --}}
         <div  class="mb-3">
-            <label for="category" class="form-label">category</label>
+            <label for="category" class="form-label">category_id</label>
             <select class="form-select" name="category">
                 @foreach ($categories as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                    {{-- <option value="{{$category->id}}">{{$category->name}}</option> --}}
+                    @if(old('category_id') == $category->id)
+                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                    @else
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endif
                 @endforeach
             </select>
         </div>
@@ -38,7 +48,11 @@
         {{-- body --}}
         <div  class="mb-3">
             <label for="body" class="form-label">Body</label>
-            <input id="body" type="hidden" name="body">
+            
+            @error('body')
+                <p class="text-danger">{{ $message }}</p>
+            @enderror
+            <input id="body" type="hidden" name="body" value="{{ old('body') }}">
             <trix-editor input="body"></trix-editor>
         </div>
 
